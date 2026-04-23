@@ -30,16 +30,16 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-x-8 md:gap-y-4">
         
         <div 
-          v-for="(item, index) in features" 
-          :key="index"
+          v-for="item in features" 
+          :key="item.id"
           class="group"
         >
           <!-- HEADER ITEM -->
           <div 
-            @click="toggleAccordion(index)"
+            @click="toggleAccordion(item.id)"
             :class="[
               'relative flex items-center p-1 pr-6 rounded-full border-2 border-black transition-all cursor-pointer overflow-hidden shadow-[4px_4px_0px_#000]',
-              isActive(index) 
+              isActive(item.id) 
                 ? 'bg-[#cf1e1e] text-white' 
                 : 'bg-[#eb7e7e] text-black hover:bg-[#cf1e1e]/10'
             ]"
@@ -53,14 +53,14 @@
             </span>
 
             <span class="text-2xl font-bold">
-              {{ isActive(index) ? '-' : '+' }}
+              {{ isActive(item.id) ? '-' : '+' }}
             </span>
           </div>
 
           <!-- CONTENT -->
           <transition name="expand">
             <div 
-              v-if="isActive(index)" 
+              v-if="isActive(item.id)" 
               class="px-16 py-4 text-black font-medium leading-relaxed"
             >
               {{ item.desc }}
@@ -77,19 +77,19 @@
 <script setup>
 import { ref } from 'vue'
 
-// ✅ multi accordion
+// pakai id biar stabil
 const activeIndexes = ref([])
 
-const toggleAccordion = (index) => {
-  if (activeIndexes.value.includes(index)) {
-    activeIndexes.value = activeIndexes.value.filter(i => i !== index)
+const toggleAccordion = (id) => {
+  if (activeIndexes.value.includes(id)) {
+    activeIndexes.value = activeIndexes.value.filter(i => i !== id)
   } else {
-    activeIndexes.value.push(index)
+    activeIndexes.value.push(id)
   }
 }
 
-const isActive = (index) => {
-  return activeIndexes.value.includes(index)
+const isActive = (id) => {
+  return activeIndexes.value.includes(id)
 }
 
 const features = [
@@ -105,7 +105,6 @@ h2 {
   -webkit-text-stroke: 1.5px #000;
 }
 
-/* smooth accordion */
 .expand-enter-active, 
 .expand-leave-active {
   transition: all 0.35s ease;
