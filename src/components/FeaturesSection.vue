@@ -84,12 +84,15 @@
     </div>
   </div>
 </template>
-
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
-// ✅ MULTI ACTIVE (bisa buka banyak)
+// semua terbuka saat awal
 const activeIndexes = ref([])
+
+onMounted(() => {
+  activeIndexes.value = [0, 1, 2, 3]
+})
 
 const toggleAccordion = (index) => {
   if (activeIndexes.value.includes(index)) {
@@ -99,7 +102,6 @@ const toggleAccordion = (index) => {
   }
 }
 
-// helper biar template clean
 const isActive = (index) => {
   return activeIndexes.value.includes(index)
 }
