@@ -6,12 +6,7 @@
       <!-- HEADER -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
         
-        <div 
-          v-motion
-          :initial="{ opacity: 0, x: -50 }"
-          :enter="{ opacity: 1, x: 0, transition: { type: 'spring', damping: 15 } }"
-          class="flex flex-col gap-4"
-        >
+        <div class="flex flex-col gap-4">
           <h2 class="font-placard-wide text-5xl md:text-7xl uppercase tracking-tighter text-[#f2c172]" 
               style="text-shadow: 2px 2px 0px #000, 4px 4px 0px #000;">
             Keunggulan Kami
@@ -26,12 +21,7 @@
           </p>
         </div>
 
-        <div 
-          v-motion
-          :initial="{ opacity: 0, scale: 0.8, rotate: 5 }"
-          :enter="{ opacity: 1, scale: 1, rotate: 0, transition: { type: 'spring', stiffness: 100, delay: 300 } }"
-          class="flex justify-center md:justify-end"
-        >
+        <div class="flex justify-center md:justify-end">
           <img src="/img/features-illus.png" alt="Keunggulan SAKA" class="h-64 md:h-[400px] object-contain drop-shadow-xl" />
         </div>
       </div>
@@ -42,9 +32,6 @@
         <div 
           v-for="(item, index) in features" 
           :key="index"
-          v-motion
-          :initial="{ opacity: 0, y: 20 }"
-          :enter="{ opacity: 1, y: 0, transition: { delay: 400 + (index * 100) } }"
           class="group"
         >
           <!-- HEADER ITEM -->
@@ -52,10 +39,12 @@
             @click="toggleAccordion(index)"
             :class="[
               'relative flex items-center p-1 pr-6 rounded-full border-2 border-black transition-all cursor-pointer overflow-hidden shadow-[4px_4px_0px_#000]',
-              isActive(index) ? 'bg-[#cf1e1e] text-white' : 'bg-[#eb7e7e] text-black hover:bg-[#cf1e1e]/10'
+              isActive(index) 
+                ? 'bg-[#cf1e1e] text-white' 
+                : 'bg-[#eb7e7e] text-black hover:bg-[#cf1e1e]/10'
             ]"
           >
-            <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#f2c172] border-2 border-black flex items-center justify-center font-bold text-xl md:text-2xl text-black shrink-0 z-10">
+            <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#f2c172] border-2 border-black flex items-center justify-center font-bold text-xl md:text-2xl text-black shrink-0">
               {{ item.id }}
             </div>
 
@@ -63,7 +52,7 @@
               {{ item.title }}
             </span>
 
-            <span class="text-2xl font-bold font-placard">
+            <span class="text-2xl font-bold">
               {{ isActive(index) ? '-' : '+' }}
             </span>
           </div>
@@ -84,15 +73,12 @@
     </div>
   </div>
 </template>
+
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 
-// semua terbuka saat awal
+// ✅ multi accordion
 const activeIndexes = ref([])
-
-onMounted(() => {
-  activeIndexes.value = [0, 1, 2, 3]
-})
 
 const toggleAccordion = (index) => {
   if (activeIndexes.value.includes(index)) {
@@ -119,10 +105,11 @@ h2 {
   -webkit-text-stroke: 1.5px #000;
 }
 
+/* smooth accordion */
 .expand-enter-active, 
 .expand-leave-active {
   transition: all 0.35s ease;
-  max-height: 200px;
+  max-height: 500px;
   overflow: hidden;
 }
 
