@@ -50,7 +50,7 @@
 
             <div class="flex flex-col gap-2.5">
               <label class="text-white font-bold text-lg">Nama Perusahaan:</label>
-              <input type="text" v-model="form.company" placeholder="Contoh: PT Saka Ruang Indonesia" class="input-saka-cartoon" />
+              <input type="text" v-model="form.company" placeholder="Contoh: PT ..." class="input-saka-cartoon" />
             </div>
 
             <div class="flex flex-col gap-2.5">
